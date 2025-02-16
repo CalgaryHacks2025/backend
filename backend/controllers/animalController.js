@@ -67,3 +67,24 @@ export const adoptAnimal = async (req, res) => {
         res.status(500).json({ error: 'Failed to adopt animal' });
     }
 };
+
+export const fetchAnimalByUserId = async (req, res) => {
+    const { user_id } = req.params;
+
+    if (!user_id) {
+        return res.status(400).json({ error: 'user_id is required' });
+    }
+
+    try {
+        const adoptions = await adoptionModel.getAdoptionsByUserId(user_id);
+
+        if (!adoptions || adoptions.length === 0) {
+            return res.status(404).json({ error: 'No adoptions found for this user' });
+        }
+
+        res.status(200).json(adoptions);
+    } catch (error) {
+        console.error('Error fetching adoptions by user ID:', error);
+        res.status(500).json({ error: 'Failed to fetch adoptions' });
+    }
+};
