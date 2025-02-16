@@ -4,6 +4,7 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import animalRoutes from './routes/animalRoutes.js';
 import rescueRoutes from './routes/rescueRoutes.js';
+import proxy from "./routes/proxy.js";
 
 // Middleware
 dotenv.config();
@@ -28,6 +29,11 @@ app.use('/api/rescue', rescueRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to Calgary-Hack Server!');
 });
+
+app.use('/api/proxy', (req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} request to ${req.originalUrl}`);
+    next();
+}, proxy); 
 
 // Error handling middleware
 app.use((err, req, res, next) => {
