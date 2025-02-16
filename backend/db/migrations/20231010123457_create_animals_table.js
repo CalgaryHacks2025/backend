@@ -7,7 +7,9 @@ export async function up(knex) {
       table.increments('id').primary();
       table.string('name').notNullable();
       table.string('species').notNullable();
-      table.string('breed').notNullable();
+      table.string('gender').notNullable();
+      table.string('activities').notNullable();
+      table.string('location').notNullable();
       table.integer('age').notNullable();
       table.string('description').notNullable();
       table.timestamps(true, true);

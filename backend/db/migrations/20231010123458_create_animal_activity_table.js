@@ -3,13 +3,16 @@
  */
 
 export async function up(knex) {
-    return knex.schema.createTable('user_activity', function(table) {
+    return knex.schema.createTable('animal_activity', function(table) {
       table.increments('id').primary();
-      table.integer('user_id').unsigned().notNullable();
       table.string('activity').notNullable();
+      table.integer('user_id').unsigned().notNullable();
+      table.integer('animal_id').unsigned().notNullable();
       table.timestamps(true, true);
   
       table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
+      table.foreign('animal_id').references('id').inTable('animals').onDelete('CASCADE');
+
     });
 };
 
@@ -18,5 +21,5 @@ export async function up(knex) {
  */
   
 export async function down(knex) {
-    return knex.schema.dropTable('user_activity');
+    return knex.schema.dropTable('animal_activity');
 };
