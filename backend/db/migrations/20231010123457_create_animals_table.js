@@ -11,7 +11,8 @@ export async function up(knex) {
       table.string('activities').notNullable();
       table.string('location').notNullable();
       table.integer('age').notNullable();
-      table.string('description').notNullable();
+      table.string('description', 1000).notNullable();
+      table.string('image').notNullable();
       table.timestamps(true, true);
     });
 };

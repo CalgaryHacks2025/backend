@@ -12,6 +12,9 @@ const app = express();
 
 app.use(cors());
 
+//use static files
+app.use('/public', express.static('public'))
+
 // Body parsing middleware
 app.use(express.json());       // Parses JSON data
 app.use(express.urlencoded({ extended: true })); // Parses url-encoded data
