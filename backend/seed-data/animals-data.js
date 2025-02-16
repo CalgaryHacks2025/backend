@@ -77,7 +77,7 @@ export default [
       species: "Penguin",
       gender: "Male",
       activities: "Swimming, Sliding, Diving",
-      location: "Antarctica",
+      location: "Halley, Antarctica",
       age: 4,
       description:
         "Oscar is a charismatic penguin known for his impeccable diving skills and endearing waddle. His adventures in the icy waters have been featured in numerous wildlife documentaries, making him a celebrated ambassador of Antarctic life. Oscar's charm and resilience make him a star among his colony.",
