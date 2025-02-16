@@ -20,7 +20,6 @@ app.get('/test', (req, res) => {
     res.send('Test route works!');
 });
 
-app.use('/', animalRoutes); // Your animal routes
 app.use('/api/auth', authRoutes);
 app.use('/api/', animalRoutes);
 app.use('/api/rescue', rescueRoutes);

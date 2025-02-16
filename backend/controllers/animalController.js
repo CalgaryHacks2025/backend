@@ -1,6 +1,8 @@
 import AnimalModel from '../models/animalModel.js'; // Import your model
+import AdoptionModel from '../models/adoptionModel.js'; // Import your model
 
 const animalModel = new AnimalModel(); // Create an instance of the model
+const adoptionModel = new AdoptionModel(); // Create an instance of the model
 
 export const fetchAllAnimals = async (req, res) => { // Define the controller function
     try {
@@ -26,10 +28,42 @@ export const fetchAnimalById = async (req, res) => {
 };
 
 export const adoptAnimal = async (req, res) => {
+    const { user_id, animal_id } = req.body;
+    // Validate input
+    if (!user_id || !animal_id) {
+        return res.status(400).json({ error: 'user_id and animal_id are required' });
+    }
+
+    // Convert animal_id to a number to avoid type issues
+    const numericAnimalId = Number(animal_id);
+    if (isNaN(numericAnimalId)) {
+        return res.status(400).json({ error: 'Invalid animal ID' });
+    }
+
     try {
-        // ... your logic to adopt an animal
+        // Check if the animal exists
+        const animal = await animalModel.getAnimalById(numericAnimalId);
+
+        if (!animal) {
+            return res.status(404).json({ error: 'Animal not found' });
+        }
+
+        // Create the adoption record
+        const adoptionData = {
+            user_id: user_id,
+            animal_id: numericAnimalId,
+            adoption_date: new Date().toISOString().split('T')[0],
+        };
+
+        const newAdoption = await adoptionModel.createAdoption(adoptionData);
+
+        res.status(201).json({
+            message: 'Animal adopted successfully',
+            adoption: newAdoption,
+        });
+
     } catch (error) {
-        console.error("Error adopting animal:", error);
+        console.error('Error during adoption:', error);
         res.status(500).json({ error: 'Failed to adopt animal' });
     }
 };

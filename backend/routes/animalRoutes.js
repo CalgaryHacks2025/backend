@@ -3,8 +3,8 @@ import { fetchAllAnimals, fetchAnimalById, adoptAnimal } from '../controllers/an
 
 const router = express.Router();
 
-router.get('/api/animals', fetchAllAnimals);
-router.get('/api/animals/:id', fetchAnimalById);
-router.post('/api/animals/adopt', adoptAnimal);
+router.get('/animals', fetchAllAnimals);
+router.get('/animals/:id', fetchAnimalById);
+router.post('/animals/adopt', adoptAnimal);
 
 export default router;
