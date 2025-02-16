@@ -1,31 +1,30 @@
 import db from '../db/knex.js';
-
 class UserModel {
-    constructor() {
-        this.tableName = 'users';
-    }
-
-    async getAllUsers() {
-        return await db(this.tableName).select('*');
+    async createUser(userData) {
+        // ... your code to create a user
+        const [id] = await db('users').insert(userData).returning('id');
+        return this.getUserById(id);
     }
 
     async getUserById(id) {
-        return await db(this.tableName).where({ id }).first();
+        return db('users').where({ id }).first();
     }
 
-    async createUser(userData) {
-        const [id] = await db(this.tableName).insert(userData).returning('id');
-        return this.getUserById(id);
+    async getUserByUsername(username) {
+        return db('users').where({ username }).first();
     }
 
-    async updateUser(id, userData) {
-        await db(this.tableName).where({ id }).update(userData);
-        return this.getUserById(id);
+    async getUserByEmail(email) {
+        return db('users').where({ email }).first();
+    }
+
+    async updateUserPassword(id, hashedPassword) {
+        return db('users').where({ id }).update({ password: hashedPassword });
     }
 
     async deleteUser(id) {
-        return await db(this.tableName).where({ id }).del();
+        return db('users').where({ id }).del();
     }
 }
 
-export default UserModel;
+export default UserModel; // Export the class itself
