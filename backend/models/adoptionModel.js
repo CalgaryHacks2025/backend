@@ -26,6 +26,10 @@ class AdoptionModel {
     async deleteAdoption(id) {
         return knex(this.tableName).where({ id }).del();
     }
+
+    async getAdoptionsByUserId(user_id) {
+        return knex(this.tableName).where({ user_id });
+    }
 }
 
 export default AdoptionModel; // Export the class itself!
