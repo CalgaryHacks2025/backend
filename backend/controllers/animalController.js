@@ -1,8 +1,10 @@
 import AnimalModel from '../models/animalModel.js'; // Import your model
 import AdoptionModel from '../models/adoptionModel.js'; // Import your model
+import AnimalActivityModel from '../models/animalActivityModel.js';
 
 const animalModel = new AnimalModel(); // Create an instance of the model
 const adoptionModel = new AdoptionModel(); // Create an instance of the model
+const activityModel = new AnimalActivityModel();
 
 export const fetchAllAnimals = async (req, res) => { // Define the controller function
     try {
@@ -86,5 +88,20 @@ export const fetchAnimalByUserId = async (req, res) => {
     } catch (error) {
         console.error('Error fetching adoptions by user ID:', error);
         res.status(500).json({ error: 'Failed to fetch adoptions' });
+    }
+};
+
+export const getAnimalActivities = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const activities = await activityModel.getUserActivities(id);
+        if (activities.length === 0) {
+            return res.status(404).json({ message: 'No activities found for this animal' });
+        }
+        res.status(200).json(activities);
+    } catch (error) {
+        console.error('Error fetching activities:', error);
+        res.status(500).json({ error: 'Failed to fetch activities' });
     }
 };

@@ -1,8 +1,8 @@
-import knex from '../db/knexfile.js';
+import knex from '../db/knex.js';
 
 class AnimalActivityModel {
     constructor() {
-        this.tableName = 'AnimalActivity';
+        this.tableName = 'animal_activity';
     }
 
     async logActivity(animalId, activity) {
@@ -19,4 +19,4 @@ class AnimalActivityModel {
 
 }
 
-export default new AnimalActivityModel();
+export default AnimalActivityModel;
