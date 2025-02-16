@@ -16,8 +16,13 @@ app.use(express.json());       // Parses JSON data
 app.use(express.urlencoded({ extended: true })); // Parses url-encoded data
 
 // Routes
+app.get('/test', (req, res) => {
+    res.send('Test route works!');
+});
+
+app.use('/', animalRoutes); // Your animal routes
 app.use('/api/auth', authRoutes);
-app.use('/api/animals', animalRoutes);
+app.use('/api/', animalRoutes);
 app.use('/api/rescue', rescueRoutes);
 
 // Default route
